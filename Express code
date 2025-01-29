@@ -1,0 +1,27 @@
+const express = require('express');
+const app = express();
+
+// Middleware to parse JSON request body
+app.use(express.json());
+
+// POST /register route handler
+app.post('/register', (req, res) => {
+    const { name, email, password } = req.body;
+
+    // Simple validation (you can enhance this as needed)
+    if (!name || !email || !password) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Here you can handle the registration logic, like saving to the database
+    // For now, let's just return a success message
+    res.status(200).json({
+        message: 'Registration successful',
+        user: { name, email } // You can send back the registered user details if needed
+    });
+});
+
+// Start the server
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
